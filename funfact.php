@@ -50,10 +50,10 @@ h5 {
         <h5> Astronomy Picture Of The Day </h5>
         <div class="container">
             <div class="ini row">
-                <div class="col-md-4">
-                    <img class="col-md-10" src="https://apod.nasa.gov/apod/image/2205/CatsPaw_Bemmerl_960.jpg">
-                </div>
-                <div class="col-md-2">
+                <!-- <div class="col-md-4">
+                    <img class="col-md-10" echo {$json["hdurl"]}>
+                </div> -->
+                <div class="col-md-9">
                     <div class="wrapper">
                         <div class="container-fluid">
                             <div class="row">
@@ -78,8 +78,8 @@ echo "<tr>";
 echo "<th>Date</th>";
 echo "<th> {$json["date"]} </th>";
 echo "</tr>";
-echo "<th>Copyright</th>";
-echo "<th> {$json["copyright"]} </th>";
+echo "<th>Picture</th>";
+echo "<th> {$json["url"]} </th>";
 echo "</tr>";
 echo "</thead>";
 echo "<tbody>";

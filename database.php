@@ -27,17 +27,77 @@
         <div class="content-database">
             <h2 align="center">Database Mahasiswa </h2>
         </div>
+        <!-- tabel di windows -->
         <div class="wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="mt-5 mb-3 clearfix">
-                            <h5 class="pull-left">Tabel Mahasiswa DTEDI</h5>
-                            <a href="insertView.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i>Add
-                                New</a>
-                        </div>
-                        <div class="scroll">
-                            <?php
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="mt-5 mb-3 clearfix">
+                        <h5 class="pull-left">Data Mahasiswa di Windows OS</h5>
+                        <a href="insertView.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i>Add
+                            New</a>
+                    </div>
+                    <div class="scroll">
+                        <?php
+//include config file
+require_once "config.php";
+
+//attempt select query execution
+$sql = "SELECT * FROM mahasiswa2";
+if ($result = mysqli_query($link, $sql)) {
+    if (mysqli_num_rows($result) > 0) {
+        echo '<table class="table table-bordered table-striped">';
+        echo "<thead>";
+        echo "<tr>";
+        echo "<th>#</th>";
+        echo "<th>Name</th>";
+        echo "<th>Alamat</th>";
+        echo "<th>Prodi</th>";
+        echo "<th>Action</th>";
+        echo "</tr>";
+        echo "</thead>";
+        echo "<tbody>";
+        while ($row = mysqli_fetch_array($result)) {
+            echo "<tr>";
+            echo "<td>" . $row['id_mhs'] . "</td>";
+            echo "<td>" . $row['nama'] . "</td>";
+            echo "<td>" . $row['alamat'] . "</td>";
+            echo "<td>" . $row['prodi'] . "</td>";
+            echo "<td>";
+            echo '<a href="editView.php?id_mhs=' . $row['id_mhs'] . '" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
+            echo '<a href="delete.php?id_mhs=' . $row['id_mhs'] . '" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+            echo "</td>";
+            echo "</tr>";
+        }
+        echo "</tbody>";
+        echo "</table>";
+        // Free result set
+        mysqli_free_result($result);
+    } else {
+        echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
+    }
+} else {
+    echo "Oops! Something went wrong. Please try again later.";
+}
+
+// Close connection
+mysqli_close($link);
+?>
+                    </div>
+                </div>
+            </div>
+            <!-- tabel di ubuntu -->
+            <div class="wrapper">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mt-5 mb-3 clearfix">
+                                <h5 class="pull-left">Data Mahasiswa di Ubuntu OS </h5>
+                                <a href="insertView.php" class="btn btn-success pull-right"><i
+                                        class="fa fa-plus"></i>Add
+                                    New</a>
+                            </div>
+                            <div class="scroll">
+                                <?php
 $curl = curl_init();
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 //Pastikan sesuai dengan alamat endpoint dari REST API di UBUNTU,
@@ -73,12 +133,13 @@ echo "</table>";
 
 curl_close($curl);
 ?>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
+        </div>
         </div>
         </div>
         </div>

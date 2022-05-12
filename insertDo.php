@@ -1,11 +1,22 @@
 <?php
-
+include_once 'config.php';
 if (isset($_POST['submit'])) {
     $nama = $_POST['nama'];
     $alamat = $_POST['alamat'];
     $prodi = $_POST['prodi'];
 
-//Pastikan sesuai dengan alamat endpoint dari REST API di ubuntu
+    //memasukkan data ke database lokal
+    $sql = "INSERT INTO mahasiswa2 (nama,alamat,prodi) VALUES ('$nama','$alamat','$prodi')";
+    if (mysqli_query($link, $sql)) {
+        echo "<center>New record has been added successfully to local database! <br>
+        </center>";
+    } else {
+        echo "Error: " . $sql . ":-" . mysqli_error($conn);
+    }
+    mysqli_close($link);
+
+//memasukkan data di ubuntu
+    //Pastikan sesuai dengan alamat endpoint dari REST API di ubuntu
     $url = 'http://192.168.56.103/sait_project_api/mahasiswa_api.php?function=insert_mhs';
     $ch = curl_init($url);
 // data yang akan dikirim ke REST api, dengan format json

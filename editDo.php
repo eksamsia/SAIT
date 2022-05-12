@@ -1,5 +1,5 @@
 <?php
-
+include_once 'config.php';
 if (isset($_POST['submit'])) {
 
     $nama = $_POST['nama'];
@@ -7,7 +7,17 @@ if (isset($_POST['submit'])) {
     $prodi = $_POST['prodi'];
     $id_mhs = $_POST['id_mhs'];
 
-//Pastikan sesuai dengan alamat endpoint dari REST API di ubuntu
+    //update data ke database local
+    $sql = "update mahasiswa2 set nama='$nama', alamat='$alamat' , prodi='$prodi' where id_mhs=$id_mhs";
+    if (mysqli_query($link, $sql)) {
+        echo "<center>Record has been updated successfully to local database!<br>";
+    } else {
+        echo "Error: " . $sql . ":-" . mysqli_error($conn);
+    }
+    mysqli_close($link);
+
+//update di ubuntu
+    //Pastikan sesuai dengan alamat endpoint dari REST API di ubuntu
     $url = 'http://192.168.56.103/sait_project_api/mahasiswa_api.php?id_mhs=' . $id_mhs . '';
     $ch = curl_init($url);
 //kirimkan data yang akan di update
