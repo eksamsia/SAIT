@@ -1,0 +1,189 @@
+<?php
+require_once "config.php";
+$request_method=$_SERVER["REQUEST_METHOD"];
+switch ($request_method) {
+   case 'GET':
+         if(!empty($_GET["id"]))
+         {
+            $id=intval($_GET["id"]);
+            get_taylor($id);
+         }
+         else
+         {
+            get_taylors();
+         }
+         break;
+    case 'POST':
+          if(!empty($_GET["id"]))
+          {
+           $id=intval($_GET["id"]);
+             update_taylor($id);
+         }
+          else
+         {
+             insert_taylor();
+          }     
+         break; 
+   case 'DELETE':
+          $id=intval($_GET["id"]);
+            delete_taylor($id);
+             break;
+   default:
+      // Invalid Request Method
+         header("HTTP/1.0 405 Method Not Allowed");
+         break;
+      break;
+ }
+
+
+
+   function get_taylors()
+   {
+      global $mysqli;
+      $query="SELECT * FROM taylor";
+      $data=array();
+      $result=$mysqli->query($query);
+      while($row=mysqli_fetch_object($result))
+      {
+         $data[]=$row;
+      }
+      $response=array(
+                     'status' => 1,
+                     'message' =>'Get List Song Successfully.',
+                     'data' => $data
+                  );
+      header('Content-Type: application/json');
+      echo json_encode($response);
+   }
+ 
+   function get_taylor($id=0)
+   {
+      global $mysqli;
+      $query="SELECT * FROM taylor";
+      if($id != 0)
+      {
+         $query.=" WHERE id=".$id." LIMIT 1";
+      }
+      $data=array();
+      $result=$mysqli->query($query);
+      while($row=mysqli_fetch_object($result))
+      {
+         $data[]=$row;
+      }
+      $response=array(
+                     'status' => 1,
+                     'message' =>'Get Song Successfully.',
+                     'data' => $data
+                  );
+      
+      echo json_encode($response);
+        
+   }
+
+function insert_taylor()
+      {
+         global $mysqli;
+         if(!empty($_POST["judul"])){
+            $data=$_POST;
+         }else{
+            $data = json_decode(file_get_contents('php://input'), true);
+         }
+
+         $arrcheckpost = array('judul' => '','album' => '', 'tahun' => '');
+         $hitung = count(array_intersect_key($data, $arrcheckpost));
+         if($hitung == count($arrcheckpost)){
+          
+               $result = mysqli_query($mysqli, "INSERT INTO taylor SET
+               judul = '$data[judul]',
+               album = '$data[album]',
+	       tahun = '$data[tahun]'");                
+               if($result)
+               {
+                  $response=array(
+                     'status' => 1,
+                     'message' =>'Song Added Successfully.'
+                  );
+               }
+               else
+               {
+                  $response=array(
+                     'status' => 0,
+                     'message' =>'Song Addition Failed.'
+                  );
+               }
+         }else{
+            $response=array(
+                     'status' => 0,
+                     'message' =>'Parameter Do Not Match'
+                  );
+         }
+         header('Content-Type: application/json');
+         echo json_encode($response);
+      }
+ 
+   function update_taylor($id)
+      {
+         global $mysqli;
+         if(!empty($_POST["judul"])){
+            $data=$_POST;
+         }else{
+            $data = json_decode(file_get_contents('php://input'), true);
+         }
+
+         $arrcheckpost = array('judul' => '','album' => '', 'tahun' => '');
+         $hitung = count(array_intersect_key($data, $arrcheckpost));
+         if($hitung == count($arrcheckpost)){
+          
+              $result = mysqli_query($mysqli, "UPDATE taylor SET
+              judul = '$data[judul]',
+              album = '$data[album]',
+	      tahun = '$data[tahun]'
+              WHERE id='$id'");
+          
+            if($result)
+            {
+               $response=array(
+                  'status' => 1,
+                  'message' =>'Song Updated Successfully.'
+               );
+            }
+            else
+            {
+               $response=array(
+                  'status' => 0,
+                  'message' =>'Song Updation Failed.'
+               );
+            }
+         }else{
+            $response=array(
+                     'status' => 0,
+                     'message' =>'Parameter Do Not Match'
+                  );
+         }
+         header('Content-Type: application/json');
+         echo json_encode($response);
+      }
+ 
+   function delete_taylor($id)
+   {
+      global $mysqli;
+      $query="DELETE FROM taylor WHERE id=".$id;
+      if(mysqli_query($mysqli, $query))
+      {
+         $response=array(
+            'status' => 1,
+            'message' =>'Song Deleted Successfully.'
+         );
+      }
+      else
+      {
+         $response=array(
+            'status' => 0,
+            'message' =>'Song Deletion Failed.'
+         );
+      }
+      header('Content-Type: application/json');
+      echo json_encode($response);
+   }
+ 
+?> 
