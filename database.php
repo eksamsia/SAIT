@@ -25,14 +25,14 @@
 <body>
     <header>
         <div class="content-database">
-            <h2 align="center">Database Mahasiswa </h2>
+            <h2 align="center">Song's List</h2>
         </div>
         <!-- tabel di windows -->
         <div class="wrapper">
             <div class="row">
                 <div class="col-md-12">
                     <div class="mt-5 mb-3 clearfix">
-                        <h5 class="pull-left">Data Mahasiswa di Windows OS</h5>
+                        <h5 class="pull-left">Windows OS</h5>
                         <a href="insertView.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i>Add
                             New</a>
                     </div>
@@ -42,29 +42,29 @@
 require_once "config.php";
 
 //attempt select query execution
-$sql = "SELECT * FROM mahasiswa2";
+$sql = "SELECT * FROM taylor";
 if ($result = mysqli_query($link, $sql)) {
     if (mysqli_num_rows($result) > 0) {
         echo '<table class="table table-bordered table-striped">';
         echo "<thead>";
         echo "<tr>";
         echo "<th>#</th>";
-        echo "<th>Name</th>";
-        echo "<th>Alamat</th>";
-        echo "<th>Prodi</th>";
+        echo "<th>Song's Title</th>";
+        echo "<th>Album</th>";
+        echo "<th>Year</th>";
         echo "<th>Action</th>";
         echo "</tr>";
         echo "</thead>";
         echo "<tbody>";
         while ($row = mysqli_fetch_array($result)) {
             echo "<tr>";
-            echo "<td>" . $row['id_mhs'] . "</td>";
-            echo "<td>" . $row['nama'] . "</td>";
-            echo "<td>" . $row['alamat'] . "</td>";
-            echo "<td>" . $row['prodi'] . "</td>";
+            echo "<td>" . $row['id'] . "</td>";
+            echo "<td>" . $row['judul'] . "</td>";
+            echo "<td>" . $row['album'] . "</td>";
+            echo "<td>" . $row['tahun'] . "</td>";
             echo "<td>";
-            echo '<a href="editView.php?id_mhs=' . $row['id_mhs'] . '" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
-            echo '<a href="delete.php?id_mhs=' . $row['id_mhs'] . '" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+            echo '<a href="editView.php?id=' . $row['id'] . '" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
+            echo '<a href="delete.php?id=' . $row['id'] . '" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
             echo "</td>";
             echo "</tr>";
         }
@@ -91,7 +91,7 @@ mysqli_close($link);
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mt-5 mb-3 clearfix">
-                                <h5 class="pull-left">Data Mahasiswa di Ubuntu OS </h5>
+                                <h5 class="pull-left">Ubuntu OS </h5>
                                 <a href="insertView.php" class="btn btn-success pull-right"><i
                                         class="fa fa-plus"></i>Add
                                     New</a>
@@ -101,7 +101,7 @@ mysqli_close($link);
 $curl = curl_init();
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 //Pastikan sesuai dengan alamat endpoint dari REST API di UBUNTU,
-curl_setopt($curl, CURLOPT_URL, 'http://192.168.56.103/sait_project_api/mahasiswa_api.php');
+curl_setopt($curl, CURLOPT_URL, 'http://192.168.56.103/project_api_sait/taylor_api.php');
 $res = curl_exec($curl);
 $json = json_decode($res, true);
 
@@ -109,22 +109,22 @@ echo '<table class="table table-bordered table-striped">';
 echo "<thead>";
 echo "<tr>";
 echo "<th>#</th>";
-echo "<th>Name</th>";
-echo "<th>Alamat</th>";
-echo "<th>Prodi</th>";
+echo "<th>Song's Title</th>";
+echo "<th>Album</th>";
+echo "<th>Year</th>";
 echo "<th>Action</th>";
 echo "</tr>";
 echo "</thead>";
 echo "<tbody>";
 for ($i = 0; $i < count($json["data"]); $i++) {
     echo "<tr>";
-    echo "<td> {$json["data"][$i]["id_mhs"]} </td>";
-    echo "<td> {$json["data"][$i]["nama"]} </td>";
-    echo "<td> {$json["data"][$i]["alamat"]} </td>";
-    echo "<td> {$json["data"][$i]["prodi"]} </td>";
+    echo "<td> {$json["data"][$i]["id"]} </td>";
+    echo "<td> {$json["data"][$i]["judul"]} </td>";
+    echo "<td> {$json["data"][$i]["album"]} </td>";
+    echo "<td> {$json["data"][$i]["tahun"]} </td>";
     echo "<td>";
-    echo '<a href="editView.php?id_mhs=' . $json["data"][$i]["id_mhs"] . '" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
-    echo '<a href="delete.php?id_mhs=' . $json["data"][$i]["id_mhs"] . '" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+    echo '<a href="editView.php?id=' . $json["data"][$i]["id"] . '" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
+    echo '<a href="delete.php?id=' . $json["data"][$i]["id"] . '" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
     echo "</td>";
     echo "</tr>";
 }

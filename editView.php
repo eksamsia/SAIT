@@ -22,11 +22,11 @@
     <body>
         <header>
             <?php
-$id_mhs = $_GET['id_mhs'];
+$id = $_GET['id'];
 $curl = curl_init();
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 //Pastikan sesuai dengan alamat endpoint dari REST API di ubuntu
-curl_setopt($curl, CURLOPT_URL, 'http://192.168.56.103/sait_project_api/mahasiswa_api.php?id_mhs=' . $id_mhs . '');
+curl_setopt($curl, CURLOPT_URL, 'http://192.168.56.103/project_api_sait/taylor_api.php?id=' . $id . '');
 $res = curl_exec($curl);
 $json = json_decode($res, true);
 //var_dump($json);
@@ -36,26 +36,26 @@ $json = json_decode($res, true);
                     <div class="row">
                         <div class="col-md-10">
                             <div class="page-header">
-                                <h2 align="center">Update Data</h2>
+                                <h2 align="center">Update Song</h2>
                             </div>
-                            <p align="center">Please fill this form and submit to add student record to the database.
+                            <p align="center">Please fill this form and submit to add song record to the database.
                             </p>
                             <form action="editDo.php" method="post">
-                                <input type="hidden" name="id_mhs" value="<?php echo "$id_mhs"; ?>">
+                                <input type="hidden" name="id" value="<?php echo "$id"; ?>">
                                 <div class="form-group">
-                                    <label>Nama</label>
-                                    <input type="text" name="nama" class="form-control"
-                                        value="<?php echo ($json["data"][0]["nama"]); ?>">
+                                    <label>Song's Title</label>
+                                    <input type="text" name="judul" class="form-control"
+                                        value="<?php echo ($json["data"][0]["judul"]); ?>">
                                 </div>
                                 <div class="form-group">
-                                    <label>Alamat</label>
-                                    <input type="mobile" name="alamat" class="form-control"
-                                        value="<?php echo ($json["data"][0]["alamat"]); ?>">
+                                    <label>Album</label>
+                                    <input type="mobile" name="album" class="form-control"
+                                        value="<?php echo ($json["data"][0]["album"]); ?>">
                                 </div>
                                 <div class="form-group">
-                                    <label>Prodi</label>
-                                    <input type="mobile" name="prodi" class="form-control"
-                                        value="<?php echo ($json["data"][0]["prodi"]); ?>">
+                                    <label>Year</label>
+                                    <input type="number" name="tahun" class="form-control"
+                                        value="<?php echo ($json["data"][0]["tahun"]); ?>">
                                 </div>
                                 <input type="submit" class="btn btn-primary" name="submit" value="Submit">
                             </form>

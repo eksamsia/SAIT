@@ -1,9 +1,9 @@
 <?php
 include_once 'config.php';
-$id_mhs = $_GET['id_mhs'];
+$id = $_GET['id'];
 
 //delete data di database local
-$sql = "delete from mahasiswa2 where id_mhs=$id_mhs";
+$sql = "delete from taylor where id=$id";
 if (mysqli_query($link, $sql)) {
     echo "<center>Record has been deleted successfully in local database!<br>";
 } else {
@@ -13,7 +13,7 @@ mysqli_close($link);
 
 //delete di ubuntu
 //Pastikan sesuai dengan alamat endpoint dari REST API di ubuntu
-$url = 'http://192.168.56.103/sait_project_api/mahasiswa_api.php?id_mhs=' . $id_mhs . '';
+$url = 'http://192.168.56.103/project_api_sait/taylor_api.php?id=' . $id . '';
 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $url);

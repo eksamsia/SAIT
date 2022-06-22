@@ -28,20 +28,20 @@
                             <div class="page-header">
                                 <h2 align="center">Add New Data</h2>
                             </div>
-                            <p align="center">Please fill this form and submit to add student record to the database.
+                            <p align="center">Please fill this form and submit to add song record to the database.
                             </p>
                             <form action="insertDo.php" method="POST">
                                 <div class="form-group">
-                                    <label>Nama</label>
-                                    <input type="text" name="nama" class="form-control">
+                                    <label>Song's Title</label>
+                                    <input type="text" name="judul" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label>Alamat</label>
-                                    <input type="text" name="alamat" class="form-control">
+                                    <label>Album</label>
+                                    <input type="text" name="album" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label>Prodi</label>
-                                    <input type="text" name="prodi" class="form-control">
+                                    <label>Tahun</label>
+                                    <input type="number" name="tahun" class="form-control">
                                 </div>
                                 <input type="submit" class="btn btn-primary" name="submit" value="submit">
                             </form>

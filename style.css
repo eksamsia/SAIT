@@ -10,7 +10,9 @@ body{
     width: 100% ;
     display: flex;
     align-items: center;
-    background: linear-gradient(135deg, #AD8B73 10% , #E3CAA5 100%);
+    /* background: linear-gradient(135deg, #AD8B73 10% , #E3CAA5 100%); */
+    background-image: url(bg2.jpeg);
+    
 }
 body::before,
 body::after{
@@ -24,11 +26,11 @@ body::after{
 }
 body::before{
     clip-path: circle(30% at left 20%);
-    background: linear-gradient(135deg, #CEAB93 10%, #FFFBE9 100% );
+    background: linear-gradient(135deg, #ece5e0 10%, #FFFBE9 100% );
 }
 body::after{
     clip-path: circle(25% at right 80%);
-    background: linear-gradient(135deg,#CEAB93 10%, #FFFBE9 100% );
+    background: linear-gradient(135deg,#dbd7d4 10%, #FFFBE9 100% );
 }
 header{
     height: 85vh;
@@ -66,13 +68,13 @@ header .navbar .menu{
 }
 .navbar .menu a{
     text-decoration: none;
-    color: #000;
+    color: rgb(241, 234, 234);
     font-size: 17px;
     font-weight: 500;
     transition: all 0.3s ease;
 }
 .navbar .menu a:hover{
-    color: #C69B7B ;
+    color: #a79e97 ;
 }
 .text-content,
 .content-database{
@@ -93,11 +95,13 @@ header .navbar .menu{
 
 /*style database.php */
 .wrapper {
-    width: 600px;
+    width: 1000px;
     margin: 0 auto;
+    color: #171618;
 }
 table tr td:last-child {
     width: 120px;
+    color: #18181a;
 }
 /* style funfact.php*/
 /* .wrapper1 {

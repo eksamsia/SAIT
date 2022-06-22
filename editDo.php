@@ -2,13 +2,13 @@
 include_once 'config.php';
 if (isset($_POST['submit'])) {
 
-    $nama = $_POST['nama'];
-    $alamat = $_POST['alamat'];
-    $prodi = $_POST['prodi'];
-    $id_mhs = $_POST['id_mhs'];
+    $judul = $_POST['judul'];
+    $album = $_POST['album'];
+    $tahun = $_POST['tahun'];
+    $id = $_POST['id'];
 
     //update data ke database local
-    $sql = "update mahasiswa2 set nama='$nama', alamat='$alamat' , prodi='$prodi' where id_mhs=$id_mhs";
+    $sql = "update taylor set judul='$judul', album='$album' , tahun='$tahun' where id=$id";
     if (mysqli_query($link, $sql)) {
         echo "<center>Record has been updated successfully to local database!<br>";
     } else {
@@ -18,13 +18,13 @@ if (isset($_POST['submit'])) {
 
 //update di ubuntu
     //Pastikan sesuai dengan alamat endpoint dari REST API di ubuntu
-    $url = 'http://192.168.56.103/sait_project_api/mahasiswa_api.php?id_mhs=' . $id_mhs . '';
+    $url = 'http://192.168.56.103/project_api_sait/taylor_api.php?id=' . $id . '';
     $ch = curl_init($url);
 //kirimkan data yang akan di update
     $jsonData = array(
-        'nama' => $nama,
-        'alamat' => $alamat,
-        'prodi' => $prodi,
+        'judul' => $judul,
+        'album' => $album,
+        'tahun' => $tahun,
     );
 
 //Encode the array into JSON.
